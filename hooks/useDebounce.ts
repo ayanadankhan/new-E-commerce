@@ -1,0 +1,14 @@
+// PURPOSE: Debounce a value for search inputs and filter fields.
+
+import { useEffect, useState } from "react";
+
+export function useDebounce<T>(value: T, delayMs: number): T {
+  const [debounced, setDebounced] = useState(value);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => setDebounced(value), delayMs);
+    return () => window.clearTimeout(id);
+  }, [value, delayMs]);
+
+  return debounced;
+}
